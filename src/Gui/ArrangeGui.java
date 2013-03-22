@@ -1,4 +1,4 @@
-package Gui;
+package gui;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
-import Map.Cell;
+import map.Cell;
 
 /**
  * 
@@ -33,6 +33,23 @@ public class ArrangeGui {
 
 		createMapArea();
 		createResetButton();
+		createFindPathButton();
+
+	}
+
+	private void createFindPathButton() {
+
+		JButton findPath = new JButton("Find Path");
+		findPath.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+		mainPanel.add(findPath);
 
 	}
 

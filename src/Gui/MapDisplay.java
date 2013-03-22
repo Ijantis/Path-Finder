@@ -1,4 +1,4 @@
-package Gui;
+package gui;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -8,8 +8,9 @@ import java.awt.event.MouseMotionListener;
 
 import javax.swing.JPanel;
 
-import Map.Cell;
-import Map.Grid;
+import map.Cell;
+import map.Grid;
+
 
 @SuppressWarnings("serial")
 public class MapDisplay extends JPanel implements MouseListener,

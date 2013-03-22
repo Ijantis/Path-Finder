@@ -1,11 +1,10 @@
-package Gui;
+package gui;
 
 import java.awt.Dimension;
-import java.awt.Toolkit;
-
 import javax.swing.JFrame;
 
-import Map.Grid;
+import map.Grid;
+
 
 @SuppressWarnings("serial")
 public class GuiMain extends JFrame {
@@ -26,7 +25,6 @@ public class GuiMain extends JFrame {
 		mapDisplay.setPreferredSize(new Dimension(myGrid.getWidth() * 5, myGrid
 				.getHeight() * 5));
 		mapDisplay.updateMap(myGrid);
-		mapDisplay.test();
 
 	}
 
@@ -40,7 +38,7 @@ public class GuiMain extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new GuiMain(new Grid(200,200));
+		new GuiMain(new Grid(200, 200));
 	}
 
 }
