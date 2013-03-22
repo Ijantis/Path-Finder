@@ -38,6 +38,8 @@ public class GuiMain extends JFrame {
 	}
 
 	public static void main(String[] args) {
+		
+		Grid myGrid = new Grid(200,200);
 		new GuiMain(new Grid(200, 200));
 	}
 

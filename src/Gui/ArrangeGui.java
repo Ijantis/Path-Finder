@@ -8,8 +8,6 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
-import map.Cell;
-
 /**
  * 
  * @author philip
@@ -44,8 +42,7 @@ public class ArrangeGui {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-
+				GuiMain.mapDisplay.findPath();
 			}
 		});
 

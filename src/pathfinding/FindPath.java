@@ -16,14 +16,13 @@ public class FindPath {
 
 	public FindPath(int startX, int startY, int goalX, int goalY, Grid myMap) {
 
+		long time = System.currentTimeMillis();
+
 		openSet = new ArrayList<Node>();
 		closedSet = new ArrayList<Node>();
 
-		// endNode = new Node(goalX, goalY, null);
-		// startNode = new Node(startX, startY, null);
-
-		endNode = new Node(52, 20, null);
-		startNode = new Node(5, 5, null);
+		endNode = new Node(goalX, goalY, null);
+		startNode = new Node(startX, startY, null);
 
 		FindPath.myMap = myMap;
 
@@ -38,10 +37,14 @@ public class FindPath {
 		System.out.println("Found the end");
 		Node temp = endNode;
 		while (temp.getParent() != null) {
+			Grid.setCellValue(temp.getX(), temp.getY(), Cell.Path);
 			System.out.println(temp.getParent().getX() + " , "
 					+ temp.getParent().getY());
 			temp = temp.getParent();
 		}
+
+		System.out.println("That took " + (System.currentTimeMillis() - time)
+				+ "ms");
 	}
 
 	private void findAdjacent(Node tempNode) {
@@ -53,19 +56,14 @@ public class FindPath {
 			atEnd = true;
 			endNode.setParent(tempNode);
 		} else {
-			System.out.println("Checking around coords x: " + tempNode.getX()
-					+ " y: " + tempNode.getY());
-
+			Node temp;
 			// NORTH
 			try {
-				Node temp = new Node(tempNode.getX(), tempNode.getY() + 1,
-						tempNode);
+				temp = new Node(tempNode.getX(), tempNode.getY() + 1, tempNode);
 				if (Grid.getCellValue(tempNode.getX(), tempNode.getY() + 1) == Cell.Free
 						&& !wasVisited(temp) && !openSet.contains(temp)) {
 
 					openSet.add(temp);
-					System.out.println("-- Added " + tempNode.getX() + " "
-							+ (tempNode.getY() + 1));
 
 				}
 			} catch (ArrayIndexOutOfBoundsException e) {
@@ -74,14 +72,11 @@ public class FindPath {
 
 			// EAST
 			try {
-				Node temp = new Node(tempNode.getX() + 1, tempNode.getY(),
-						tempNode);
+				temp = new Node(tempNode.getX() + 1, tempNode.getY(), tempNode);
 				if (Grid.getCellValue(tempNode.getX() + 1, tempNode.getY()) == Cell.Free
 						&& !wasVisited(temp) && !openSet.contains(temp)) {
 
 					openSet.add(temp);
-					System.out.println("-- Added " + (tempNode.getX() + 1)
-							+ " " + tempNode.getY());
 
 				}
 
@@ -91,14 +86,11 @@ public class FindPath {
 
 			// SOUTH
 			try {
-				Node temp = new Node(tempNode.getX(), tempNode.getY() - 1,
-						tempNode);
+				temp = new Node(tempNode.getX(), tempNode.getY() - 1, tempNode);
 				if (Grid.getCellValue(tempNode.getX(), tempNode.getY() - 1) == Cell.Free
 						&& !wasVisited(temp) && !openSet.contains(temp)) {
 
 					openSet.add(temp);
-					System.out.println("-- Added " + tempNode.getX() + " "
-							+ (tempNode.getY() - 1));
 
 				}
 			} catch (ArrayIndexOutOfBoundsException e) {
@@ -107,14 +99,11 @@ public class FindPath {
 
 			// WEST
 			try {
-				Node temp = new Node(tempNode.getX() - 1, tempNode.getY(),
-						tempNode);
+				temp = new Node(tempNode.getX() - 1, tempNode.getY(), tempNode);
 				if (Grid.getCellValue(tempNode.getX() - 1, tempNode.getY()) == Cell.Free
 						&& !wasVisited(temp) && !openSet.contains(temp)) {
 
 					openSet.add(temp);
-					System.out.println("-- Added " + (tempNode.getX() - 1)
-							+ " " + tempNode.getY());
 
 				}
 			} catch (ArrayIndexOutOfBoundsException e) {
@@ -123,14 +112,12 @@ public class FindPath {
 
 			// NORTH EAST
 			try {
-				Node temp = new Node(tempNode.getX() + 1, tempNode.getY() + 1,
+				temp = new Node(tempNode.getX() + 1, tempNode.getY() + 1,
 						tempNode);
 				if (Grid.getCellValue(tempNode.getX() + 1, tempNode.getY() + 1) == Cell.Free
 						&& !wasVisited(temp) && !openSet.contains(temp)) {
 
 					openSet.add(temp);
-					System.out.println("-- Added " + (tempNode.getX() - 1)
-							+ " " + tempNode.getY());
 
 				}
 			} catch (ArrayIndexOutOfBoundsException e) {
@@ -139,14 +126,12 @@ public class FindPath {
 
 			// NORTH WEST
 			try {
-				Node temp = new Node(tempNode.getX() - 1, tempNode.getY() + 1,
+				temp = new Node(tempNode.getX() - 1, tempNode.getY() + 1,
 						tempNode);
 				if (Grid.getCellValue(tempNode.getX() - 1, tempNode.getY() + 1) == Cell.Free
 						&& !wasVisited(temp) && !openSet.contains(temp)) {
 
 					openSet.add(temp);
-					System.out.println("-- Added " + (tempNode.getX() - 1)
-							+ " " + tempNode.getY());
 
 				}
 			} catch (ArrayIndexOutOfBoundsException e) {
@@ -155,14 +140,12 @@ public class FindPath {
 
 			// SOUTH EAST
 			try {
-				Node temp = new Node(tempNode.getX() + 1, tempNode.getY() - 1,
+				temp = new Node(tempNode.getX() + 1, tempNode.getY() - 1,
 						tempNode);
 				if (Grid.getCellValue(tempNode.getX() + 1, tempNode.getY() - 1) == Cell.Free
 						&& !wasVisited(temp) && !openSet.contains(temp)) {
 
 					openSet.add(temp);
-					System.out.println("-- Added " + (tempNode.getX() - 1)
-							+ " " + tempNode.getY());
 
 				}
 			} catch (ArrayIndexOutOfBoundsException e) {
@@ -171,14 +154,12 @@ public class FindPath {
 
 			// SOUTH WEST
 			try {
-				Node temp = new Node(tempNode.getX() - 1, tempNode.getY() - 1,
+				temp = new Node(tempNode.getX() - 1, tempNode.getY() - 1,
 						tempNode);
 				if (Grid.getCellValue(tempNode.getX() - 1, tempNode.getY() - 1) == Cell.Free
 						&& !wasVisited(temp) && !openSet.contains(temp)) {
 
 					openSet.add(temp);
-					System.out.println("-- Added " + (tempNode.getX() - 1)
-							+ " " + tempNode.getY());
 
 				}
 			} catch (ArrayIndexOutOfBoundsException e) {

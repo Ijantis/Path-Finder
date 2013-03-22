@@ -109,4 +109,16 @@ public class Grid {
 		}
 	}
 
+	public static void clearPathCells() {
+
+		for (int i = 0; i < data.length; i++) {
+			for (int j = 0; j < data[0].length; j++) {
+				if (data[i][j].getCellValue() == Cell.Path) {
+					data[i][j] = new Cell(Cell.Free);
+				}
+			}
+		}
+
+	}
+
 }

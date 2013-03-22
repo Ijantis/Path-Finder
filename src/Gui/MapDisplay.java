@@ -8,9 +8,10 @@ import java.awt.event.MouseMotionListener;
 
 import javax.swing.JPanel;
 
+import pathfinding.FindPath;
+
 import map.Cell;
 import map.Grid;
-
 
 @SuppressWarnings("serial")
 public class MapDisplay extends JPanel implements MouseListener,
@@ -32,17 +33,21 @@ public class MapDisplay extends JPanel implements MouseListener,
 				if (Grid.getCellValue(x, y) == Cell.Free) {
 					g.setColor(Color.white);
 					g.fillRect(x * 5, y * 5, 5, 5);
+
+				} else if (Grid.getCellValue(x, y) == Cell.Path) {
+					g.setColor(Color.red);
+					g.fillRect(x * 5, y * 5, 5, 5);
 				} else {
 					g.setColor(Color.black);
-					g.fillRect(x * 5, y *5, 5, 5);
-				} 
+					g.fillRect(x * 5, y * 5, 5, 5);
+				}
 			}
 		}
-		
+
 		g.setColor(Color.gray);
 		for (int x = 0; x < data.getWidth(); x++) {
 			for (int y = 0; y < data.getHeight(); y++) {
-				g.drawRect(x*5, y*5, 5, 5);
+				g.drawRect(x * 5, y * 5, 5, 5);
 			}
 		}
 
@@ -50,6 +55,12 @@ public class MapDisplay extends JPanel implements MouseListener,
 
 	public void updateMap(Grid data) {
 		MapDisplay.data = data;
+		this.repaint();
+	}
+
+	public void findPath() {
+		Grid.clearPathCells();
+		new FindPath(0, 0, 20, 20, data);
 		this.repaint();
 	}
 
