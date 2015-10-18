@@ -35,136 +35,46 @@ public class FindPath {
 		Node temp = endNode;
 		while (temp.getParent() != null) {
 			Grid.setCellValue(temp.getX(), temp.getY(), Cell.Path);
-			System.out.println(temp.getParent().getX() + " , "
-					+ temp.getParent().getY());
+			System.out.println(temp.getParent().getX() + " , " + temp.getParent().getY());
 			temp = temp.getParent();
 		}
 
-		System.out.println("That took " + (System.currentTimeMillis() - time)
-				+ "ms");
+		System.out.println("That took " + (System.currentTimeMillis() - time) + "ms");
 	}
 
-	private void findAdjacent(Node tempNode) {
+	private void findAdjacent(Node currentNode) {
 
-		openSet.remove(tempNode);
-		closedSet.add(tempNode);
+		openSet.remove(currentNode);
+		closedSet.add(currentNode);
 
-		if (tempNode.equals(endNode)) {
+		if (currentNode.equals(endNode)) {
 			atEnd = true;
-			endNode.setParent(tempNode);
+			endNode.setParent(currentNode);
+			return;
 		} else {
-			Node temp;
-			// NORTH
-			try {
-				temp = new Node(tempNode.getX(), tempNode.getY() + 1, tempNode);
-				if (Grid.getCellValue(tempNode.getX(), tempNode.getY() + 1) == Cell.Free
-						&& !wasVisited(temp) && !openSet.contains(temp)) {
-
-					openSet.add(temp);
-
-				}
-			} catch (ArrayIndexOutOfBoundsException e) {
-				// TODO: handle exception
-			}
-
-			// EAST
-			try {
-				temp = new Node(tempNode.getX() + 1, tempNode.getY(), tempNode);
-				if (Grid.getCellValue(tempNode.getX() + 1, tempNode.getY()) == Cell.Free
-						&& !wasVisited(temp) && !openSet.contains(temp)) {
-
-					openSet.add(temp);
-
-				}
-
-			} catch (ArrayIndexOutOfBoundsException e) {
-				// TODO: handle exception
-			}
-
-			// SOUTH
-			try {
-				temp = new Node(tempNode.getX(), tempNode.getY() - 1, tempNode);
-				if (Grid.getCellValue(tempNode.getX(), tempNode.getY() - 1) == Cell.Free
-						&& !wasVisited(temp) && !openSet.contains(temp)) {
-
-					openSet.add(temp);
-
-				}
-			} catch (ArrayIndexOutOfBoundsException e) {
-				// TODO: handle exception
-			}
-
-			// WEST
-			try {
-				temp = new Node(tempNode.getX() - 1, tempNode.getY(), tempNode);
-				if (Grid.getCellValue(tempNode.getX() - 1, tempNode.getY()) == Cell.Free
-						&& !wasVisited(temp) && !openSet.contains(temp)) {
-
-					openSet.add(temp);
-
-				}
-			} catch (ArrayIndexOutOfBoundsException e) {
-				// TODO: handle exception
-			}
-
-			// NORTH EAST
-			try {
-				temp = new Node(tempNode.getX() + 1, tempNode.getY() + 1,
-						tempNode);
-				if (Grid.getCellValue(tempNode.getX() + 1, tempNode.getY() + 1) == Cell.Free
-						&& !wasVisited(temp) && !openSet.contains(temp)) {
-
-					openSet.add(temp);
-
-				}
-			} catch (ArrayIndexOutOfBoundsException e) {
-				// TODO: handle exception
-			}
-
-			// NORTH WEST
-			try {
-				temp = new Node(tempNode.getX() - 1, tempNode.getY() + 1,
-						tempNode);
-				if (Grid.getCellValue(tempNode.getX() - 1, tempNode.getY() + 1) == Cell.Free
-						&& !wasVisited(temp) && !openSet.contains(temp)) {
-
-					openSet.add(temp);
-
-				}
-			} catch (ArrayIndexOutOfBoundsException e) {
-				// TODO: handle exception
-			}
-
-			// SOUTH EAST
-			try {
-				temp = new Node(tempNode.getX() + 1, tempNode.getY() - 1,
-						tempNode);
-				if (Grid.getCellValue(tempNode.getX() + 1, tempNode.getY() - 1) == Cell.Free
-						&& !wasVisited(temp) && !openSet.contains(temp)) {
-
-					openSet.add(temp);
-
-				}
-			} catch (ArrayIndexOutOfBoundsException e) {
-				// TODO: handle exception
-			}
-
-			// SOUTH WEST
-			try {
-				temp = new Node(tempNode.getX() - 1, tempNode.getY() - 1,
-						tempNode);
-				if (Grid.getCellValue(tempNode.getX() - 1, tempNode.getY() - 1) == Cell.Free
-						&& !wasVisited(temp) && !openSet.contains(temp)) {
-
-					openSet.add(temp);
-
-				}
-			} catch (ArrayIndexOutOfBoundsException e) {
-				// TODO: handle exception
-			}
-
+			search(currentNode, 0, 1); // north
+			search(currentNode, 1, 0); // east
+			search(currentNode, 0, -1); // south
+			search(currentNode, -1, 0); // west
+			search(currentNode, 1, 1); // north east
+			search(currentNode, -1, 1); // north west
+			search(currentNode, 1, -1); // south east
+			search(currentNode, -1, -1); // south west
 		}
 
+	}
+
+	private void search(Node currentNode, int nextX, int nextY) {
+		try {
+			Node nextNode = new Node(currentNode.getX() + nextX, currentNode.getY() + nextY, currentNode);
+			if (Grid.getCellValue(currentNode.getX() + nextX, currentNode.getY() + nextY) == Cell.Free
+					&& !wasVisited(nextNode) && !openSet.contains(nextNode)) {
+				openSet.add(nextNode);
+
+			}
+		} catch (ArrayIndexOutOfBoundsException e) {
+			// TODO: handle exception
+		}
 	}
 
 	private boolean wasVisited(Node temp) {
