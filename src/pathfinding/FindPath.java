@@ -12,7 +12,6 @@ public class FindPath {
 	private boolean atEnd = false;
 	private static Node endNode;
 	private static Node startNode;
-	private static Grid myMap;
 
 	public FindPath(int startX, int startY, int goalX, int goalY, Grid myMap) {
 
@@ -23,8 +22,6 @@ public class FindPath {
 
 		endNode = new Node(goalX, goalY, null);
 		startNode = new Node(startX, startY, null);
-
-		FindPath.myMap = myMap;
 
 		openSet.add(startNode);
 
@@ -166,11 +163,6 @@ public class FindPath {
 				// TODO: handle exception
 			}
 
-		}
-
-		try {
-			Thread.sleep(1);
-		} catch (InterruptedException e) {
 		}
 
 	}

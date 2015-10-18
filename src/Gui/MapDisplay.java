@@ -60,7 +60,7 @@ public class MapDisplay extends JPanel implements MouseListener,
 
 	public void findPath() {
 		Grid.clearPathCells();
-		new FindPath(0, 0, 20, 20, data);
+		new FindPath(0, 0, 0, 100, data);
 		this.repaint();
 	}
 
