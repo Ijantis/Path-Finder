@@ -41,9 +41,7 @@ public class Node {
 
 		if (obj instanceof Node) {
 			Node temp = (Node) obj;
-			if (temp.getX() == this.x && temp.getY() == this.y) {
-				return true;
-			}
+			return temp.getX() == this.x && temp.getY() == this.y;
 		}
 		return false;
 	}
