@@ -14,11 +14,11 @@ import map.Cell;
 import map.Grid;
 
 @SuppressWarnings("serial")
-public class MapDisplay extends JPanel implements MouseListener,
-		MouseMotionListener {
+public class MapDisplay extends JPanel implements MouseListener, MouseMotionListener {
 
 	protected static Grid data;
 	protected static int currentCellEdit = Cell.Obstacle;
+	public static final int drawingScale = 10;
 
 	public MapDisplay() {
 		addMouseListener(this);
@@ -32,14 +32,14 @@ public class MapDisplay extends JPanel implements MouseListener,
 			for (int y = 0; y < data.getHeight(); y++) {
 				if (Grid.getCellValue(x, y) == Cell.Free) {
 					g.setColor(Color.white);
-					g.fillRect(x * 5, y * 5, 5, 5);
+					g.fillRect(x * drawingScale, y * drawingScale, drawingScale, drawingScale);
 
 				} else if (Grid.getCellValue(x, y) == Cell.Path) {
 					g.setColor(Color.red);
-					g.fillRect(x * 5, y * 5, 5, 5);
+					g.fillRect(x * drawingScale, y * drawingScale, drawingScale, drawingScale);
 				} else {
 					g.setColor(Color.black);
-					g.fillRect(x * 5, y * 5, 5, 5);
+					g.fillRect(x * drawingScale, y * drawingScale, drawingScale, drawingScale);
 				}
 			}
 		}
@@ -47,7 +47,7 @@ public class MapDisplay extends JPanel implements MouseListener,
 		g.setColor(Color.gray);
 		for (int x = 0; x < data.getWidth(); x++) {
 			for (int y = 0; y < data.getHeight(); y++) {
-				g.drawRect(x * 5, y * 5, 5, 5);
+				g.drawRect(x * drawingScale, y * drawingScale, drawingScale, drawingScale);
 			}
 		}
 
@@ -60,7 +60,7 @@ public class MapDisplay extends JPanel implements MouseListener,
 
 	public void findPath() {
 		Grid.clearPathCells();
-		new FindPath(0, 0, 0, 100, data);
+		new FindPath(0, 0, 99, 99, data);
 		this.repaint();
 	}
 
@@ -73,7 +73,7 @@ public class MapDisplay extends JPanel implements MouseListener,
 			currentCellEdit = Cell.Free;
 		}
 
-		Grid.setCellValue(arg0.getX() / 5, arg0.getY() / 5, currentCellEdit);
+		Grid.setCellValue(arg0.getX() / drawingScale, arg0.getY() / drawingScale, currentCellEdit);
 		this.repaint();
 		System.out.println(arg0.getButton());
 	}
@@ -110,7 +110,7 @@ public class MapDisplay extends JPanel implements MouseListener,
 	@Override
 	public void mouseDragged(MouseEvent arg0) {
 
-		Grid.setCellValue(arg0.getX() / 5, arg0.getY() / 5, currentCellEdit);
+		Grid.setCellValue(arg0.getX() / drawingScale, arg0.getY() / drawingScale, currentCellEdit);
 		this.repaint();
 
 	}
@@ -119,6 +119,10 @@ public class MapDisplay extends JPanel implements MouseListener,
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public int getDrawingScale() {
+		return drawingScale;
 	}
 
 }

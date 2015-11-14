@@ -5,7 +5,6 @@ import javax.swing.JFrame;
 
 import map.Grid;
 
-
 @SuppressWarnings("serial")
 public class GuiMain extends JFrame {
 
@@ -22,8 +21,8 @@ public class GuiMain extends JFrame {
 	private void initialiseMap(Grid myGrid) {
 
 		mapDisplay = new MapDisplay();
-		mapDisplay.setPreferredSize(new Dimension(myGrid.getWidth() * 5, myGrid
-				.getHeight() * 5));
+		mapDisplay.setPreferredSize(new Dimension(myGrid.getWidth() * mapDisplay.getDrawingScale(),
+				myGrid.getHeight() * mapDisplay.getDrawingScale()));
 		mapDisplay.updateMap(myGrid);
 
 	}
@@ -38,9 +37,9 @@ public class GuiMain extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		
-		Grid myGrid = new Grid(200,200);
-		new GuiMain(new Grid(200, 200));
+
+		Grid myGrid = new Grid(100, 100);
+		new GuiMain(new Grid(100, 100));
 	}
 
 }
