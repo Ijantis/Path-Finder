@@ -12,10 +12,12 @@ public class FindPath {
 	private boolean atEnd = false;
 	private static Node endNode;
 	private static Node startNode;
+	private static int count = 0;
 
 	public FindPath(int startX, int startY, int goalX, int goalY, Grid myMap) {
 
 		long time = System.currentTimeMillis();
+		count = 0;
 
 		openSet = new ArrayList<Node>();
 		closedSet = new ArrayList<Node>();
@@ -40,6 +42,7 @@ public class FindPath {
 		}
 
 		System.out.println("That took " + (System.currentTimeMillis() - time) + "ms");
+		System.out.println(count);
 	}
 
 	private void findAdjacent(Node currentNode) {
@@ -65,26 +68,23 @@ public class FindPath {
 	}
 
 	private void search(Node currentNode, int nextX, int nextY) {
+		count++;
 		try {
 			Node nextNode = new Node(currentNode.getX() + nextX, currentNode.getY() + nextY, currentNode);
-			if (Grid.getCellValue(currentNode.getX() + nextX, currentNode.getY() + nextY) == Cell.Free
-					&& !wasVisited(nextNode) && !openSet.contains(nextNode)) {
+
+			if (!wasVisited(nextNode) && !openSet.contains(nextNode)
+					&& Grid.getCellValue(currentNode.getX() + nextX, currentNode.getY() + nextY) == Cell.Free) {
 				openSet.add(nextNode);
 
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {
-			// TODO: handle exception
+			return;
 		}
 	}
 
 	private boolean wasVisited(Node temp) {
 
-		if (this.closedSet.contains(temp)) {
-			return true;
-		} else {
-
-			return false;
-		}
+		return this.closedSet.contains(temp);
 	}
 
 }
