@@ -13,6 +13,7 @@ public class FindPath {
 	private static Node endNode;
 	private static Node startNode;
 	private static int count = 0;
+	private Node[][] allNodes = new Node[100][100];
 
 	public FindPath(int startX, int startY, int goalX, int goalY, Grid myMap) {
 
@@ -22,8 +23,8 @@ public class FindPath {
 		openSet = new ArrayList<Node>();
 		closedSet = new ArrayList<Node>();
 
-		endNode = new Node(goalX, goalY, null);
-		startNode = new Node(startX, startY, null);
+		endNode = new Node(goalX, goalY);
+		startNode = new Node(startX, startY);
 
 		openSet.add(startNode);
 
@@ -35,10 +36,10 @@ public class FindPath {
 
 		System.out.println("Found the end");
 		Node temp = endNode;
-		while (temp.getParent() != null) {
+		while (temp.hasParent()) {
 			Grid.setCellValue(temp.getX(), temp.getY(), Cell.Path);
-			System.out.println(temp.getParent().getX() + " , " + temp.getParent().getY());
-			temp = temp.getParent();
+			System.out.println(temp.getParentX() + " , " + temp.getParentY());
+			temp = new Node()
 		}
 
 		System.out.println("That took " + (System.currentTimeMillis() - time) + "ms");
@@ -70,7 +71,7 @@ public class FindPath {
 	private void search(Node currentNode, int nextX, int nextY) {
 		count++;
 		try {
-			Node nextNode = new Node(currentNode.getX() + nextX, currentNode.getY() + nextY, currentNode);
+			Node nextNode = new Node(currentNode.getX() + nextX, currentNode.getY() + nextY);
 
 			if (!wasVisited(nextNode) && !openSet.contains(nextNode)
 					&& Grid.getCellValue(currentNode.getX() + nextX, currentNode.getY() + nextY) == Cell.Free) {

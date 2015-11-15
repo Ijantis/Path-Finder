@@ -4,12 +4,12 @@ public class Node {
 
 	private int x;
 	private int y;
-	private Node parent;
+	private int parentX, parentY;
+	private boolean hasParent = false;
 
-	public Node(int x, int y, Node parent) {
+	public Node(int x, int y) {
 		this.x = x;
 		this.y = y;
-		this.parent = parent;
 	}
 
 	public int getX() {
@@ -28,14 +28,24 @@ public class Node {
 		this.y = y;
 	}
 
-	public Node getParent() {
-		return parent;
+	public int getParentX() {
+		return this.parentX;
+	}
+
+	public int getParentY() {
+		return this.parentY;
 	}
 
 	public void setParent(Node parent) {
-		this.parent = parent;
+		this.hasParent = true;
+		this.parentX = parent.getX();
+		this.parentY = parent.getY();
 	}
 
+	public boolean hasParent() {
+		return this.hasParent;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 
