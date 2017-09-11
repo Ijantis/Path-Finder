@@ -31,17 +31,17 @@ public class Node {
 	public int getParentX() {
 		return this.parentX;
 	}
-
+	
 	public int getParentY() {
 		return this.parentY;
 	}
-
-	public void setParent(Node parent) {
+	
+	public void setParent(int parentX, int parentY) {
+		this.parentX = parentX;
+		this.parentY = parentY;
 		this.hasParent = true;
-		this.parentX = parent.getX();
-		this.parentY = parent.getY();
 	}
-
+	
 	public boolean hasParent() {
 		return this.hasParent;
 	}
@@ -54,6 +54,11 @@ public class Node {
 			return temp.getX() == this.x && temp.getY() == this.y;
 		}
 		return false;
+	}
+	
+	@Override
+	public String toString() {
+		return this.x + ":" + this.y;
 	}
 
 }

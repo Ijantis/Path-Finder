@@ -13,7 +13,6 @@ public class FindPath {
 	private static Node endNode;
 	private static Node startNode;
 	private static int count = 0;
-	private Node[][] allNodes = new Node[100][100];
 
 	public FindPath(int startX, int startY, int goalX, int goalY, Grid myMap) {
 
@@ -37,11 +36,18 @@ public class FindPath {
 		System.out.println("Found the end");
 		Node temp = endNode;
 		while (temp.hasParent()) {
+			System.out.println("here");
 			Grid.setCellValue(temp.getX(), temp.getY(), Cell.Path);
-			System.out.println(temp.getParentX() + " , " + temp.getParentY());
-			temp = new Node()
+			for (Node node : closedSet) {
+				if(node.getX() == temp.getParentX() && node.getY() == temp.getParentY()) {
+					temp = node;
+					break;
+				}
+			}
 		}
-
+		
+		Grid.setCellValue(temp.getX(), temp.getY(), Cell.Path);
+		
 		System.out.println("That took " + (System.currentTimeMillis() - time) + "ms");
 		System.out.println(count);
 	}
@@ -50,10 +56,10 @@ public class FindPath {
 
 		openSet.remove(currentNode);
 		closedSet.add(currentNode);
-
+		System.out.println("Current node is " + currentNode.toString());
 		if (currentNode.equals(endNode)) {
 			atEnd = true;
-			endNode.setParent(currentNode);
+			endNode.setParent(currentNode.getParentX(), currentNode.getParentY());
 			return;
 		} else {
 			search(currentNode, 0, 1); // north
@@ -76,7 +82,7 @@ public class FindPath {
 			if (!wasVisited(nextNode) && !openSet.contains(nextNode)
 					&& Grid.getCellValue(currentNode.getX() + nextX, currentNode.getY() + nextY) == Cell.Free) {
 				openSet.add(nextNode);
-
+				nextNode.setParent(currentNode.getX(), currentNode.getY());
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {
 			return;
@@ -84,7 +90,6 @@ public class FindPath {
 	}
 
 	private boolean wasVisited(Node temp) {
-
 		return this.closedSet.contains(temp);
 	}
 

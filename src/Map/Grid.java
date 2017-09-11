@@ -53,9 +53,8 @@ public class Grid {
 
 	}
 
-	@SuppressWarnings("unused")
-	private Grid() {
-
+	public Grid() {
+		this(100, 100);
 	}
 
 	public static int getCellValue(int x, int y) {
@@ -120,5 +119,4 @@ public class Grid {
 		}
 
 	}
-
 }
